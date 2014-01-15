@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+    	<meta charset='utf-8'>
+    	<link rel="stylesheet" media="screen" href="main.css">
+		<script src="http://code.jquery.com/jquery-1.7.1.min.js"> </script>
+		<script type="text/javascript"
+      src="http://maps.googleapis.com/maps/api/js?v=3.exp&libraries=places&key=AIzaSyDHCuYineLepVmUSx67g0xKO3zgf6_d6UE&sensor=false">
+    	</script>
+ 
+    <script type="text/javascript">
+ 
+ 
+		var timercount = 0;
+		var timestart  = null;
+		 
+		function showtimer() {
+		    if(timercount) {
+		        clearTimeout(timercount);
+		        clockID = 0;
+		    }
+		    if(!timestart){
+		        timestart = new Date();
+		    }
+		    var timeend = new Date();
+		    var timedifference = timeend.getTime() - timestart.getTime();
+		    timeend.setTime(timedifference);
+		    var minutes_passed = timeend.getMinutes();
+		    if(minutes_passed < 10){
+		        minutes_passed = "0" + minutes_passed;
+		    }
+		    var seconds_passed = timeend.getSeconds();
+		    if(seconds_passed < 10){
+		        seconds_passed = "0" + seconds_passed;
+		    }
+		    document.getElementById("display").value = minutes_passed + ":" + seconds_passed;
+		    document.getElementById("val").value= minutes_passed*60+seconds_passed;
+		    timercount = setTimeout("showtimer()", 1000);
+		}
+ 
+			function sw_start(){
+			    if(!timercount){
+			    timestart   = new Date();
+			    document.getElementById("display").value = "00:00";
+			    
+			    timercount  = setTimeout("showtimer()", 1000);
+			    }
+			    
+			}
+				 
+				function Stop() {
+				    if(timercount) {
+				        clearTimeout(timercount);
+				        timercount  = 0;
+				        var timeend = new Date();
+				        var timedifference = timeend.getTime() - timestart.getTime();
+				        timeend.setTime(timedifference);
+				        var minutes_passed = timeend.getMinutes();
+				        if(minutes_passed < 10){
+				            minutes_passed = "0" + minutes_passed;
+				        }
+				        var seconds_passed = timeend.getSeconds();
+				        if(seconds_passed < 10){
+				            seconds_passed = "0" + seconds_passed;
+				        }
+				        var milliseconds_passed = timeend.getMilliseconds();
+				        if(milliseconds_passed < 10){
+				            milliseconds_passed = "00" + milliseconds_passed;
+				        }
+				        else if(milliseconds_passed < 100){
+				            milliseconds_passed = "0" + milliseconds_passed;
+				        }
+				        document.getElementById("display").value = minutes_passed + ":" + seconds_passed + "." + milliseconds_passed;
+				        document.getElementById("val").value= minutes_passed*60+seconds_passed;
+				    }
+				    timestart = null;
+				}
+				 
+				function Reset() {
+				    timestart = null;
+				    document.getElementById("display").value = "00:00";
+				   
+				}
+				 
+
+			 
+			</script>
+		
+    	<script type="text/javascript">
+	      function initialize() {
+		        var mapOptions = {
+		          center: new google.maps.LatLng(50.94158292629882, 6.958497762680054),
+		          zoom: 15,
+		          mapTypeId: google.maps.MapTypeId.ROADMAP
+		        };
+	       	 var map = new google.maps.Map(document.getElementById("map_canvas"),
+	            mapOptions);
+		      var marker = new google.maps.Marker({
+		 	     position: map.getCenter(),
+			     map: map,
+			     draggable: true
+			   });
+		      google.maps.event.addListener(marker, 'dragend', function() {
+				    document.getElementById("latitude").value = marker.getPosition().lat();
+				    document.getElementById("longitude").value = marker.getPosition().lng();
+			  });
+	      }
+	      google.maps.event.addDomListener(window, 'load', initialize);
+	    </script>
+	</head>
+
+	<body>
+   		<div id='content'>
+    		<header>
+		<img src="img/logo.jpg" >
+			<nav>
+				<hr noshade>
+				<ul>
+				<li><a href='index.html'>Index</a></li>
+				<li><a href='Proposals'>Proposals</a></li>
+				<li><a href='Ideas'>Ideas</a></li>
+				<li><a href='experience.html'>Experience</a></li>
+				<li><a href='contact.html'>Contact</a></li>
+				</ul>
+				<hr noshade>
+			</nav>
+		</header>
+            <section>
+            	<div id='txMain'>
+			<nav>
+				<ul>
+				<li><div id="local_contact">
+						CONTACT
+						<hr noshade>
+					<p>Javier Rodriguez Puigvert</p>
+					<p>51103 Cologne · Germany</p>
+					<p>Email: javier.r.puigvert@gmail.com</p>
+				</div></li>
+				<li><div id="map_canvas" style="width:300px; height:256px;"></div></li>
+					
+			
+				</ul>
+			</nav>
+                </div>
+            </section>
+    	</div>
+</body>
+<footer>
+			<hgroup>
+		<nav>
+				<ul>
+				<li><div id='boxfooter'>
+							CONTACT
+						<hr noshade>
+					Javier Rodriguez Puigvert
+					51103 Cologne · Germany
+
+					</div></li>
+						<li><div id='boxfooter'>
+						<hr noshade>Phone: +49 (0)221-677 860-0
+					</div></li>
+				<li><div id='boxfooter'>
+						<hr noshade>
+					Email: javier.r.puigvert@gmail.com</div></li>
+				</ul>
+			<hr noshade>
+		</nav>
+		</hgroup>			
+			
+</footer>
+</html>
